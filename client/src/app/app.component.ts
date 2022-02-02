@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IUserObject } from './_models/user';
+import { IUser, IUserObject } from './_models/user';
+import { UserService } from './_services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,16 +12,18 @@ export class AppComponent implements OnInit {
   title = 'client';
   users !: IUserObject[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private user$: UserService) { }
 
   ngOnInit() {
-    this.getUsers();
+    this.setCurrentUser();
+  }
+
+  setCurrentUser() {
+    const userObj = localStorage.getItem('user');
+    if (userObj) {
+      const user: IUser = JSON.parse(userObj);
+      this.user$.setCurrentUser(user);
+    }
   }
   
-  getUsers() {
-    this.http.get<IUserObject[]>('https://localhost:5001/api/users').subscribe(data => {
-      console.log(data);
-      this.users = data.sort((a, b) => a.userName.localeCompare(b.userName));
-    })
-  }
 }
