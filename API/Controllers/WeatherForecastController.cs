@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace API.Controllers
 {
   [ApiController] // signifies that this particular class is of type ApiController
-  [Route("[controller]")] // controller = "WeatherForecast" i.e. "WeatherForecast" is controller root
+  [Route("[controller]")] // controller = "WeatherForecast" i.e. "WeatherForecast" is controller route
 
   public class WeatherForecastController : ControllerBase { // every controller needs to derive from ControllerBase class 
     private static readonly string[] Summaries = new[] {

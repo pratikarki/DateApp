@@ -1,8 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using API.Data;
+using API.Extensions;
+using API.Interfaces;
+using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace API {
@@ -25,13 +31,10 @@ namespace API {
     // This method gets called by the runtime. Use this method to add services to the container.
     // Also known as dependency injection container
     public void ConfigureServices(IServiceCollection services) {
-
-      services.AddDbContext<DataContext>(options => { //passing expression as a parameter (using lambda expression)
-        options.UseSqlite(_config.GetConnectionString("DefaultConnection")); // accessing database via this connection string
-      }); 
-
+      services.AddApplicationServices(_config); // this is an extension method (all the application services that we create lies here)
       services.AddControllers();
       services.AddCors();
+      services.AddIdentityServices(_config); // this is an extension method (all the identity related services lies here)
 
       services.AddSwaggerGen(c => {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -52,6 +55,7 @@ namespace API {
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .WithOrigins("https://localhost:4200"));
+      app.UseAuthentication();
       app.UseAuthorization();
       app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
