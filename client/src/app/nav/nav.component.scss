@@ -1,3 +1,7 @@
 .dropdown-toggle, .dropdown-item {
   cursor: pointer;
 }
+
+.btn-outline-light:hover {
+  color: inherit;
+}
