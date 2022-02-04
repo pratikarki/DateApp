@@ -24,7 +24,7 @@ namespace API.Data
     public async Task<MemberDto> GetMemberAsync(string username) {
       return await _context.Users
         .Where(user => user.UserName == username)
-        .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
+        .ProjectTo<MemberDto>(_mapper.ConfigurationProvider) // automapper queryable extensions
         .SingleOrDefaultAsync();
     }
 
