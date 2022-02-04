@@ -12,6 +12,18 @@
 
 @import "~ngx-toastr/toastr-bs4-alert";
 
+*::selection {
+  background: #78c2ad;
+  color: #fff;
+  text-shadow: none;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .tab-panel {
   border: 1px solid #ddd;
   padding: 10px;

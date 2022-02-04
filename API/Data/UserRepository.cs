@@ -38,11 +38,11 @@ namespace API.Data
     //   return await _context.Users.FindAsync(id);
     // }
 
-    // public async Task<AppUser> GetUserByUsernameAsync(string username) {
-    //   return await _context.Users
-    //     .Include(user => user.Photos) // called eager loading; this causes circular reference exception
-    //     .SingleOrDefaultAsync(el => el.UserName == username);
-    // }
+    public async Task<AppUser> GetUserByUsernameAsync(string username) {
+      return await _context.Users
+        .Include(user => user.Photos) // called eager loading; this causes circular reference exception
+        .SingleOrDefaultAsync(el => el.UserName == username);
+    }
 
     // public async Task<IEnumerable<AppUser>> GetUsersAsync() {
     //   // IEnumerable allows us to use simple iteration over a collection of specified type
