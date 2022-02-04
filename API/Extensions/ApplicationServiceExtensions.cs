@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ namespace API.Extensions
       // TokenService is scoped to the lifetime of a HTTP request and then disposed
       // when a request comes, this service is injected to the particular controller, then new instance --
       // of service is created. When request is finished, the service is disposed.
+      services.AddScoped<IUserRepository, UserRepository>();
+      services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
       services.AddDbContext<DataContext>(options => { //passing expression as a parameter (using lambda expression)
         options.UseSqlite(config.GetConnectionString("DefaultConnection")); // accessing database via this connection string
