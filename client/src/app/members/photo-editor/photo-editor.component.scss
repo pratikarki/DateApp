@@ -1,0 +1,30 @@
+img.img-thumbnail {
+  height: 120px;
+  min-width: 100px !important;
+  margin-bottom: 3px;
+}
+
+.nv-file-over {
+  border: dotted 3px red;
+}
+
+input[type=file] {
+  color: transparent;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.queue {
+  button:not(:last-child) {
+    margin-right: 5px;
+  }
+}
+
+.my-drop-zone {
+  min-height: 125px;
+  justify-content: center;
+  align-items: center;
+}

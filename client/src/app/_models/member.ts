@@ -1,4 +1,4 @@
-import { Photo } from "./photo";
+import { IPhoto } from "./photo";
 
 
 export interface IMember {
@@ -15,5 +15,5 @@ export interface IMember {
   interests: string,
   city: string,
   country: string,
-  photos: Photo[]
+  photos: IPhoto[]
 }

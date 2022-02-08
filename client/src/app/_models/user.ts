@@ -5,7 +5,8 @@ export interface IUserObject {
 
 export interface IUser {
   username: string,
-  token: string
+  token: string,
+  photoUrl: string
 }
 
 export interface IGetUsersResponse {

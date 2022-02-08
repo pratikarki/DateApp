@@ -14,6 +14,8 @@ namespace API.Extensions
 {
   public static class ApplicationServiceExtensions {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config) {
+      services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+      services.AddScoped<IPhotoService, PhotoService>();
       services.AddScoped<ITokenService, TokenService>(); 
       // TokenService is scoped to the lifetime of a HTTP request and then disposed
       // when a request comes, this service is injected to the particular controller, then new instance --

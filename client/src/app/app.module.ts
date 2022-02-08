@@ -19,6 +19,8 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { FooterComponent } from './footer/footer.component';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { FooterComponent } from './footer/footer.component';
     MessagesComponent,
     MemberCardComponent,
     MemberEditComponent,
-    FooterComponent
+    FooterComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule,
     FormsModule,
     SharedModule,
+    FileUploadModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
