@@ -63,7 +63,7 @@
       <div>
         Queue progress:
         <div class="progress" style="margin-bottom: 15px;">
-          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
         </div>
       </div>
       <button type="button" class="btn btn-success btn-sm" (click)="uploader.uploadAll()"

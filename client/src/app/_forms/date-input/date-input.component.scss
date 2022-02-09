@@ -1,0 +1,12 @@
+.form-group {
+  position: relative;
+}
+
+.invalid-feedback {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin: 0;
+  transform: translate(110%,-50%);
+}
+
