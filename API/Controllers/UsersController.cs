@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -29,8 +31,16 @@ namespace API.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers() {
-      return Ok(await _userRepo.GetMembersAsync());
+    public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams) {
+      var user = await _userRepo.GetUserByUsernameAsync(User.GetUsername());
+      userParams.CurrentUsername = user.UserName;
+
+      if (string.IsNullOrEmpty(userParams.Gender)) {
+        userParams.Gender = user.Gender == "male"? "female" : "male";
+      }
+      var users = await _userRepo.GetMembersAsync(userParams);
+      Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+      return Ok(users);
     }
 
     // api/users/3
@@ -41,8 +51,8 @@ namespace API.Controllers
 
     [HttpPut]
     public async Task<ActionResult> UpdateUser(MemberUpdateDto updateObj) {
-      var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value; //gives user's username from the token
-      var user = await _userRepo.GetUserByUsernameAsync(username);
+      // User.GetUsername() gives user's username from the token
+      var user = await _userRepo.GetUserByUsernameAsync(User.GetUsername());
 
       _mapper.Map(updateObj, user);
       _userRepo.Update(user);
@@ -53,8 +63,7 @@ namespace API.Controllers
 
     [HttpPost("add-photo")]
     public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file) {
-      var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var user = await _userRepo.GetUserByUsernameAsync(username);
+      var user = await _userRepo.GetUserByUsernameAsync(User.GetUsername());
       var result = await _photoService.AddPhotoAsync(file);
       if (result.Error != null) return BadRequest(result.Error.Message);
 
@@ -74,8 +83,7 @@ namespace API.Controllers
 
     [HttpPut("set-main-photo/{photoId}")]
     public async Task<ActionResult> SetMainPhoto(int photoId) {
-      var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var user = await _userRepo.GetUserByUsernameAsync(username);
+      var user = await _userRepo.GetUserByUsernameAsync(User.GetUsername());
       var photo = user.Photos.FirstOrDefault(el => el.Id == photoId);
       if (photo.IsMain) return BadRequest("This is already your display picture");
       var currentMain = user.Photos.FirstOrDefault(el => el.IsMain); // returns current main photo
@@ -89,8 +97,7 @@ namespace API.Controllers
 
     [HttpDelete("delete-photo/{photoId}")]
     public async Task<ActionResult> DeletePhoto(int photoId) {
-      var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var user = await _userRepo.GetUserByUsernameAsync(username);
+      var user = await _userRepo.GetUserByUsernameAsync(User.GetUsername());
       var photo = user.Photos.FirstOrDefault(el => el.Id == photoId);
       if (photo == null) return NotFound();
       if (photo.IsMain) return BadRequest("You can not delete your main photo");

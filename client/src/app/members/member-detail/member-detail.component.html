@@ -19,12 +19,12 @@
             <span>{{ member.age }}</span>
           </div>
           <div class="card-item">
-            <strong>Last seen: </strong>
-            <span>{{ member.lastActive }}</span>
+            <strong>Last active: </strong>
+            <span>{{ member.lastActive | timeago }}</span>
           </div>
           <div class="card-item">
             <strong>Member since: </strong>
-            <span>{{ member.created }}</span>
+            <span>{{ member.created | date: 'longDate' }}</span>
           </div>
         </div>
         <div class="card-footer">

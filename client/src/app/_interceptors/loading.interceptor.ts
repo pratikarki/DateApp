@@ -18,7 +18,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.spin$.start();
     return next.handle(request).pipe(
       // needs to be removed
-      // delay(200),
+      delay(500),
       finalize(() => {
         this.spin$.stop();
       })
