@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
-import { ListsComponent } from './lists/lists.component';
+import { LikesComponent } from './likes/likes.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SharedModule } from './_modules/shared.module';
 import { MemberCardComponent } from './members/member-card/member-card.component';
@@ -32,7 +32,7 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     RegisterComponent,
     MemberListComponent,
     MemberDetailComponent,
-    ListsComponent,
+    LikesComponent,
     MessagesComponent,
     MemberCardComponent,
     MemberEditComponent,

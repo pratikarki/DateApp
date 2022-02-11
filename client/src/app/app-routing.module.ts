@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ListsComponent } from './lists/lists.component';
+import { LikesComponent } from './likes/likes.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
@@ -19,7 +19,7 @@ const routes: Routes = [
       { path: 'members', component: MemberListComponent },
       { path: 'members/:username', component: MemberDetailComponent },
       { path: 'member/edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard] },
-      { path: 'lists', component: ListsComponent },
+      { path: 'likes', component: LikesComponent },
       { path: 'messages', component: MessagesComponent },
     ] 
   },

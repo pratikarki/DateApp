@@ -61,6 +61,17 @@ export class MemberService {
     return this.http.delete(this.baseUrl+'users/delete-photo/'+photoId);
   }
 
+  addLike(username: string) {
+    return this.http.post(this.baseUrl+'likes/'+username, {});
+  }
+
+  getLikes(predicate: string, pageNumber: number, pageSize: number) {
+    let httpParams = this.getPaginationHeaders(pageNumber, pageSize);
+    httpParams = httpParams.append('predicate', predicate);
+    return this.getPaginatedResult<Partial<IMember[]>>(this.baseUrl+'likes',httpParams);
+    // return this.http.get<Partial<IMember[]>>(this.baseUrl+'likes?predicate='+predicate);
+  }
+
   getMembers(userParams: UserParams) {
     var response = this.memberCache.get(Object.values(userParams).join('-'));
     if (response) return of(response);
